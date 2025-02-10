@@ -166,7 +166,29 @@ export const assessmentCriteria: Record<string, AssessmentResult[]> = {
       resources: ["https://example.com/resource1", "https://example.com/resource2"]
     }
   ],
-  "The Escape Artist": [],
+  "The Escape Artist": [
+    {
+      range: [0, 3],
+      level: "Low Risk",
+      description: "Occasional commitment avoidance might just be a temporary phase or a reflection of their personality, but overall, it's not a major concern.",
+      detailedFeedback: "Placeholder for detailed feedback.",
+      resources: ["https://example.com/resource1", "https://example.com/resource2"]
+    },
+    {
+      range: [4, 7],
+      level: "Moderate Risk",
+      description: "There's a noticeable pattern of emotional distance and avoidance of commitment. It could be a sign that you might need to have a conversation about emotional availability and expectations.",
+      detailedFeedback: "Placeholder for detailed feedback.",
+      resources: ["https://example.com/resource1", "https://example.com/resource2"]
+    },
+    {
+      range: [8, 10],
+      level: "High Risk",
+      description: "These responses strongly indicate that the person may be consistently emotionally unavailable, dismissive of your feelings, and reluctant to commit. If you see this many red flags, it might be time to re-evaluate whether this relationship meets your emotional needs.",
+      detailedFeedback: "Placeholder for detailed feedback.",
+      resources: ["https://example.com/resource1", "https://example.com/resource2"]
+    }
+  ],
   "The Money Leech": [
     {
       range: [0, 3],
@@ -1017,6 +1039,67 @@ export const quizData: Question[] = [
     id: 1010, 
     category: "The Danger Zone", 
     text: "Escalating Behavior: Have you noticed their controlling or aggressive behavior getting worse over time?", 
+    isRedFlag: true 
+  },
+  // Escape Artist Questions
+  { 
+    id: 301, 
+    category: "The Escape Artist", 
+    text: "Commitment Avoidance: Do they consistently avoid discussions about the future of your relationship?", 
+    isRedFlag: true 
+  },
+  { 
+    id: 302, 
+    category: "The Escape Artist", 
+    text: "Mixed Signals: Do they send confusing messages about their feelings or intentions?", 
+    isRedFlag: true 
+  },
+  { 
+    id: 303, 
+    category: "The Escape Artist", 
+    text: "Emotional Distance: When things get emotionally intimate, do they pull away or become unavailable?", 
+    isRedFlag: true 
+  },
+  { 
+    id: 304, 
+    category: "The Escape Artist", 
+    text: "Past Pattern: Do they have a history of leaving relationships when they become serious?", 
+    isRedFlag: true 
+  },
+  { 
+    id: 305, 
+    category: "The Escape Artist", 
+    text: "Excuse Making: Do they frequently make excuses to avoid spending quality time together?", 
+    isRedFlag: true 
+  },
+  { 
+    id: 306, 
+    category: "The Escape Artist", 
+    text: "Fear of Labels: Are they resistant to defining the relationship or using terms like 'partner' or 'couple'?", 
+    isRedFlag: true 
+  },
+  { 
+    id: 307, 
+    category: "The Escape Artist", 
+    text: "Ghosting Tendency: Have they disappeared for periods without explanation, then reappeared as if nothing happened?", 
+    isRedFlag: true 
+  },
+  { 
+    id: 308, 
+    category: "The Escape Artist", 
+    text: "Surface Level: Do they keep conversations superficial and avoid deeper emotional discussions?", 
+    isRedFlag: true 
+  },
+  { 
+    id: 309, 
+    category: "The Escape Artist", 
+    text: "Independence Obsession: Do they prioritize their 'independence' to an extreme, even in reasonable relationship situations?", 
+    isRedFlag: true 
+  },
+  { 
+    id: 310, 
+    category: "The Escape Artist", 
+    text: "Future Flinching: When you bring up future plans, do they change the subject or become visibly uncomfortable?", 
     isRedFlag: true 
   }
 ]
