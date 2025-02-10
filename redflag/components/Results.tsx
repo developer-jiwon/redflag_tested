@@ -475,6 +475,64 @@ export default function Results({ redFlagCount, totalQuestions, onRestart, categ
     }
   };
 
+  const getDangerZoneAssessment = (count: number) => {
+    if (count <= 2) {
+      return {
+        level: "🟢 Low Risk Traits",
+        description: [
+          "This person does not show strong signs of abusive or dangerous behavior.",
+          "They may have occasional anger issues or jealousy, but no clear pattern of control or harm.",
+          "Healthy relationships are built on trust, not fear—but always monitor behavior over time."
+        ],
+        color: "text-green-600"
+      };
+    } else if (count <= 4) {
+      return {
+        level: "🟡 Warning Signs Present",
+        description: [
+          "Some early red flags of control, anger, or jealousy are appearing.",
+          "They may struggle with emotional regulation, use manipulation, or show possessiveness.",
+          "This could escalate if not addressed—take note of patterns and set firm boundaries.",
+          "Proceed with caution and don't ignore gut feelings."
+        ],
+        color: "text-yellow-600"
+      };
+    } else if (count <= 6) {
+      return {
+        level: "🟠 Moderate Risk of Harm",
+        description: [
+          "A clear pattern of control, aggression, or intimidation is forming.",
+          "This person may use coercion, jealousy, substance abuse, or anger as weapons in the relationship.",
+          "Interactions may feel unsafe or unpredictable.",
+          "Serious boundary-setting is needed—this could escalate into an abusive dynamic."
+        ],
+        color: "text-orange-600"
+      };
+    } else if (count <= 8) {
+      return {
+        level: "🔴 High Risk (Major Red Flag!)",
+        description: [
+          "🚩 Strong signs of abusive and dangerous tendencies.",
+          "This person displays clear patterns of control, anger, coercion, and possibly physical harm.",
+          "You may feel trapped, fearful, or unsafe in their presence.",
+          "Seeking support or exit strategies is highly recommended."
+        ],
+        color: "text-red-600"
+      };
+    } else {
+      return {
+        level: "⚠️ Extreme Danger (Immediate Threat!)",
+        description: [
+          "🚨 Major warning signs of severe abuse and potential violence.",
+          "This person exhibits controlling, violent, coercive, and unpredictable behavior.",
+          "Physical harm, extreme isolation, financial control, and escalating aggression are all present.",
+          "Seek help, talk to trusted individuals, and consider safe exit strategies immediately."
+        ],
+        color: "text-red-700"
+      };
+    }
+  };
+
   useEffect(() => {
     const url = new URL(window.location.href);
     url.searchParams.set("category", category);
@@ -506,6 +564,8 @@ export default function Results({ redFlagCount, totalQuestions, onRestart, categ
     ? getMoneyLeechAssessment(redFlagCount)
     : category === "The Chaos Magnet"
     ? getChaosMagnetAssessment(redFlagCount)
+    : category === "The Danger Zone"
+    ? getDangerZoneAssessment(redFlagCount)
     : null;
 
   return (
