@@ -187,6 +187,62 @@ export default function Results({ redFlagCount, totalQuestions, onRestart, categ
     }
   };
 
+  const getShadyLiarAssessment = (count: number) => {
+    if (count <= 2) {
+      return {
+        level: "🟢 Low Dishonest Traits",
+        description: [
+          "This person shows minimal to no signs of deception.",
+          "They might value privacy but don't display a pattern of secrecy or lies.",
+          "Likely just independent or private, not necessarily dishonest."
+        ],
+        color: "text-green-600"
+      };
+    } else if (count <= 4) {
+      return {
+        level: "🟡 Mild Dishonest Traits",
+        description: [
+          "Some secrecy or defensiveness exists, but it may not be intentional deception.",
+          "Could be habitual privacy, poor communication, or insecurity rather than outright lying.",
+          "Monitor patterns—inconsistent stories or dodging questions could indicate deeper issues."
+        ],
+        color: "text-yellow-600"
+      };
+    } else if (count <= 6) {
+      return {
+        level: "🟠 Moderate Dishonest Traits",
+        description: [
+          "A clear pattern of dishonesty or secrecy is emerging.",
+          "They might hide things, twist facts, or avoid direct answers.",
+          "Trust issues are likely in this relationship—be cautious."
+        ],
+        color: "text-orange-600"
+      };
+    } else if (count <= 8) {
+      return {
+        level: "🔴 High Dishonest Traits (Red Flag Alert!)",
+        description: [
+          "🚩 This person regularly lies, avoids accountability, and changes their stories.",
+          "Blame-shifting, defensiveness, and secrecy are their go-to responses.",
+          "High risk of manipulation or betrayal—trust is being actively broken.",
+          "Consider reevaluating this relationship."
+        ],
+        color: "text-red-600"
+      };
+    } else {
+      return {
+        level: "⚠️ Extreme Dishonest Traits (Toxic/Dangerous Red Flag!)",
+        description: [
+          "🚨 Major warning signs of serious dishonesty and deception.",
+          "This person lies habitually, gaslights, and refuses accountability.",
+          "Expect constant secrecy, emotional manipulation, and lack of transparency.",
+          "Trust is completely compromised—consider distancing or cutting ties."
+        ],
+        color: "text-red-700"
+      };
+    }
+  };
+
   useEffect(() => {
     const url = new URL(window.location.href);
     url.searchParams.set("category", category);
@@ -208,6 +264,8 @@ export default function Results({ redFlagCount, totalQuestions, onRestart, categ
     ? getNarcissistAssessment(redFlagCount)
     : category === "The Control Freak"
     ? getControlFreakAssessment(redFlagCount)
+    : category === "The Shady Liar"
+    ? getShadyLiarAssessment(redFlagCount)
     : null;
 
   return (
