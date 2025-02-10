@@ -533,6 +533,64 @@ export default function Results({ redFlagCount, totalQuestions, onRestart, categ
     }
   };
 
+  const getHistoryHaunterAssessment = (count: number) => {
+    if (count <= 2) {
+      return {
+        level: "🟢 Low Fixation on the Past",
+        description: [
+          "This person seems to have moved on from their past relationships.",
+          "They may mention past experiences occasionally, but it's not a dominant theme.",
+          "Healthy relationship potential! No major red flags here."
+        ],
+        color: "text-green-600"
+      };
+    } else if (count <= 4) {
+      return {
+        level: "🟡 Mild Past Attachment",
+        description: [
+          "Some lingering attachment to past experiences or relationships, but not extreme.",
+          "They may occasionally bring up an ex or past issues, but it doesn't heavily impact your relationship.",
+          "Could be a sign they need closure or personal growth—watch for patterns over time.",
+          "Open conversations about boundaries may help."
+        ],
+        color: "text-yellow-600"
+      };
+    } else if (count <= 6) {
+      return {
+        level: "🟠 Moderate Emotional Baggage",
+        description: [
+          "A noticeable pattern of being stuck in the past is emerging.",
+          "They might still compare you to an ex, dwell on past betrayals, or struggle with trust.",
+          "You may feel like a second choice in their emotional world.",
+          "Be cautious—this could prevent the relationship from growing."
+        ],
+        color: "text-orange-600"
+      };
+    } else if (count <= 8) {
+      return {
+        level: "🔴 High Past Fixation (Red Flag Alert!)",
+        description: [
+          "🚩 Strong signs of unresolved emotional baggage and difficulty moving on.",
+          "They likely still have emotional ties to an ex, struggle with trust, or resist personal growth.",
+          "Their past dominates their present, making it hard to build a healthy relationship.",
+          "Consider whether they're truly available for a fresh start with you."
+        ],
+        color: "text-red-600"
+      };
+    } else {
+      return {
+        level: "⚠️ Extreme Past Fixation (Toxic/Dangerous Red Flag!)",
+        description: [
+          "🚨 Major warning signs that they are emotionally unavailable.",
+          "This person is still emotionally attached to their past, either through obsession, regret, or unfinished business.",
+          "Expect constant ex-talk, social media stalking, comparisons, and lack of emotional availability.",
+          "You deserve a relationship where you're the priority—consider stepping away."
+        ],
+        color: "text-red-700"
+      };
+    }
+  };
+
   useEffect(() => {
     const url = new URL(window.location.href);
     url.searchParams.set("category", category);
@@ -566,6 +624,8 @@ export default function Results({ redFlagCount, totalQuestions, onRestart, categ
     ? getChaosMagnetAssessment(redFlagCount)
     : category === "The Danger Zone"
     ? getDangerZoneAssessment(redFlagCount)
+    : category === "The History Haunter"
+    ? getHistoryHaunterAssessment(redFlagCount)
     : null;
 
   return (
