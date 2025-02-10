@@ -591,6 +591,63 @@ export default function Results({ redFlagCount, totalQuestions, onRestart, categ
     }
   };
 
+  const getDoubleLifeAssessment = (count: number) => {
+    if (count <= 2) {
+      return {
+        level: "🟢 Low Secrecy Traits",
+        description: [
+          "This person shows no major signs of living a double life.",
+          "They may value privacy, but their behavior is generally transparent and consistent.",
+          "Healthy trust dynamics—no immediate red flags."
+        ],
+        color: "text-green-600"
+      };
+    } else if (count <= 4) {
+      return {
+        level: "🟡 Mild Secrecy & Inconsistencies",
+        description: [
+          "Some privacy habits or vague behavior are noticeable, but not necessarily deceptive.",
+          "They might be private about certain aspects of their life, but this could be normal or circumstantial.",
+          "Keep an eye on patterns—secrecy can sometimes be a sign of deeper issues."
+        ],
+        color: "text-yellow-600"
+      };
+    } else if (count <= 6) {
+      return {
+        level: "🟠 Moderate Red Flags for a Double Life",
+        description: [
+          "A pattern of secrecy, inconsistent stories, and compartmentalized relationships is forming.",
+          "They might avoid discussing certain aspects of their life, change their stories, or have financial secrecy.",
+          "This could indicate dishonesty or a separate lifestyle they don't want you to know about.",
+          "Proceed with caution and look for more signs before drawing conclusions."
+        ],
+        color: "text-orange-600"
+      };
+    } else if (count <= 8) {
+      return {
+        level: "🔴 High Risk of Living a Double Life (Red Flag Alert!)",
+        description: [
+          "🚩 Strong indications that this person is hiding major aspects of their life.",
+          "Expect multiple personas, financial secrecy, hidden relationships, or constant story changes.",
+          "Trust is compromised—major deception could be at play.",
+          "Serious boundary-setting is needed—consider whether this relationship is built on truth."
+        ],
+        color: "text-red-600"
+      };
+    } else {
+      return {
+        level: "⚠️ Extreme Secrecy & Double Life (Toxic/Dangerous Red Flag!)",
+        description: [
+          "🚨 Major warning signs of deception, hidden relationships, or a second life.",
+          "This person maintains separate identities, keeps people and finances compartmentalized, and avoids transparency.",
+          "Their secrecy is intentional and manipulative—major trust violations are likely.",
+          "Consider distancing yourself and seeking the full truth."
+        ],
+        color: "text-red-700"
+      };
+    }
+  };
+
   useEffect(() => {
     const url = new URL(window.location.href);
     url.searchParams.set("category", category);
@@ -626,6 +683,8 @@ export default function Results({ redFlagCount, totalQuestions, onRestart, categ
     ? getDangerZoneAssessment(redFlagCount)
     : category === "The History Haunter"
     ? getHistoryHaunterAssessment(redFlagCount)
+    : category === "The Double Life"
+    ? getDoubleLifeAssessment(redFlagCount)
     : null;
 
   return (
