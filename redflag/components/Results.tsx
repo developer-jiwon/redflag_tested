@@ -72,6 +72,64 @@ export default function Results({ redFlagCount, totalQuestions, onRestart, categ
     }
   };
 
+  const getPuppetMasterAssessment = (count: number) => {
+    if (count <= 2) {
+      return {
+        level: "🟢 Low Manipulative Traits",
+        description: [
+          "This person shows little to no signs of manipulative behavior.",
+          "They may still have moments of miscommunication, but they don't actively twist narratives or guilt-trip others.",
+          "Healthy relationship potential! Minor issues can likely be resolved through honest communication."
+        ],
+        color: "text-green-600"
+      };
+    } else if (count <= 4) {
+      return {
+        level: "🟡 Mild Manipulative Traits",
+        description: [
+          "There are some manipulative tendencies, but they may not be intentional.",
+          "They might use guilt, play the victim, or avoid responsibility occasionally.",
+          "This could stem from insecurity or learned behaviors, rather than deliberate control.",
+          "Pay attention to patterns—occasional manipulation can become a bigger problem over time."
+        ],
+        color: "text-yellow-600"
+      };
+    } else if (count <= 6) {
+      return {
+        level: "🟠 Moderate Manipulative Traits",
+        description: [
+          "Clear signs of repeated manipulative behaviors.",
+          "This person twists words, avoids accountability, and guilt-trips regularly.",
+          "Conversations likely feel one-sided or emotionally draining.",
+          "Proceed with caution—you may need strong boundaries to maintain emotional well-being."
+        ],
+        color: "text-orange-600"
+      };
+    } else if (count <= 8) {
+      return {
+        level: "🔴 High Manipulative Traits (Red Flag Alert)",
+        description: [
+          "This person routinely uses tactics like gaslighting, blame-shifting, and emotional control.",
+          "They likely dismiss your emotions, distort reality, and make you feel responsible for their well-being.",
+          "Hard to build a healthy connection—their behavior can cause serious emotional exhaustion.",
+          "Consider reevaluating the relationship and setting clear boundaries."
+        ],
+        color: "text-red-600"
+      };
+    } else {
+      return {
+        level: "⚠️ Extreme Manipulative Traits (Toxic/Dangerous Red Flag!)",
+        description: [
+          "Major warning signs! This person operates entirely through manipulation and control.",
+          "Expect gaslighting, guilt-tripping, emotional blackmail, and power imbalances in interactions.",
+          "High likelihood of emotional or psychological abuse—they don't respect boundaries or personal autonomy.",
+          "Protect yourself. Distance may be the best course of action."
+        ],
+        color: "text-red-700"
+      };
+    }
+  };
+
   useEffect(() => {
     const url = new URL(window.location.href);
     url.searchParams.set("category", category);
@@ -87,7 +145,9 @@ export default function Results({ redFlagCount, totalQuestions, onRestart, categ
     });
   };
 
-  const assessment = category === "The Narcissist Syndrome" 
+  const assessment = category === "The Puppet Master" 
+    ? getPuppetMasterAssessment(redFlagCount)
+    : category === "The Narcissist Syndrome"
     ? getNarcissistAssessment(redFlagCount)
     : null;
 
