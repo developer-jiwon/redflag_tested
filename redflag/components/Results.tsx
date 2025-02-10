@@ -243,6 +243,64 @@ export default function Results({ redFlagCount, totalQuestions, onRestart, categ
     }
   };
 
+  const getIceKingQueenAssessment = (count: number) => {
+    if (count <= 2) {
+      return {
+        level: "🟢 Low Emotional Barriers",
+        description: [
+          "This person shows no major signs of emotional detachment.",
+          "They may have occasional difficulty expressing emotions, but they are open to connection.",
+          "Healthy emotional balance—they likely engage in intimacy and vulnerability when needed."
+        ],
+        color: "text-green-600"
+      };
+    } else if (count <= 4) {
+      return {
+        level: "🟡 Mild Emotional Distance",
+        description: [
+          "Some difficulty with emotional vulnerability or affection is noticeable.",
+          "They may avoid deep talks or struggle with emotional expression, but not in an extreme way.",
+          "Could be due to personality, past experiences, or fear of getting hurt.",
+          "Patience and communication might help, but be mindful if this pattern worsens."
+        ],
+        color: "text-yellow-600"
+      };
+    } else if (count <= 6) {
+      return {
+        level: "🟠 Moderate Emotional Walls",
+        description: [
+          "A clear pattern of emotional unavailability is emerging.",
+          "They likely avoid vulnerability, deflect emotional discussions, and struggle with intimacy.",
+          "Emotional support might feel lacking, making connection one-sided.",
+          "Proceed with caution—this person may not be capable of deep emotional intimacy."
+        ],
+        color: "text-orange-600"
+      };
+    } else if (count <= 8) {
+      return {
+        level: "🔴 High Emotional Detachment (Red Flag Alert!)",
+        description: [
+          "🚩 This person actively resists closeness, vulnerability, and emotional depth.",
+          "They may dismiss your emotional needs, avoid future discussions, or shut down when things get deep.",
+          "Relationships with them often feel cold, unfulfilling, and disconnected.",
+          "Serious boundary-setting is needed—or consider if this relationship is worth the effort."
+        ],
+        color: "text-red-600"
+      };
+    } else {
+      return {
+        level: "⚠️ Extreme Emotional Walls (Toxic/Dangerous Red Flag!)",
+        description: [
+          "🚨 Major warning signs of extreme emotional unavailability.",
+          "They shut down, avoid commitment, and block any form of emotional intimacy.",
+          "Expect little to no emotional reciprocity, dismissiveness, and possible abandonment behaviors.",
+          "This relationship is emotionally draining—consider whether it's truly fulfilling."
+        ],
+        color: "text-red-700"
+      };
+    }
+  };
+
   useEffect(() => {
     const url = new URL(window.location.href);
     url.searchParams.set("category", category);
@@ -266,6 +324,8 @@ export default function Results({ redFlagCount, totalQuestions, onRestart, categ
     ? getControlFreakAssessment(redFlagCount)
     : category === "The Shady Liar"
     ? getShadyLiarAssessment(redFlagCount)
+    : category === "The Ice King/Queen"
+    ? getIceKingQueenAssessment(redFlagCount)
     : null;
 
   return (
