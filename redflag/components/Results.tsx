@@ -359,6 +359,64 @@ export default function Results({ redFlagCount, totalQuestions, onRestart, categ
     }
   };
 
+  const getMoneyLeechAssessment = (count: number) => {
+    if (count <= 2) {
+      return {
+        level: "🟢 Low Financial Risk",
+        description: [
+          "This person doesn't show major signs of financial dependence or manipulation.",
+          "They likely manage their finances responsibly and contribute fairly.",
+          "Healthy financial boundaries—no major red flags."
+        ],
+        color: "text-green-600"
+      };
+    } else if (count <= 4) {
+      return {
+        level: "🟡 Mild Financial Concerns",
+        description: [
+          "Some financial irresponsibility or occasional money struggles, but not extreme.",
+          "They may rely on you occasionally but don't completely take advantage.",
+          "Could be temporary due to life circumstances—watch for patterns over time.",
+          "Setting clear financial expectations may help."
+        ],
+        color: "text-yellow-600"
+      };
+    } else if (count <= 6) {
+      return {
+        level: "🟠 Moderate Financial Exploitation",
+        description: [
+          "A noticeable pattern of financial dependence and lack of responsibility.",
+          "They may avoid paying their share, pressure you for money, or be evasive about finances.",
+          "Spending habits may feel unfair or one-sided, leading to resentment.",
+          "Proceed with caution—this person may not take financial stability seriously."
+        ],
+        color: "text-orange-600"
+      };
+    } else if (count <= 8) {
+      return {
+        level: "🔴 High Financial Exploitation (Red Flag Alert!)",
+        description: [
+          "🚩 Strong signs of financial manipulation and irresponsibility.",
+          "They likely expect you to cover expenses, make impulsive purchases, and avoid financial responsibility.",
+          "You may feel financially drained or pressured to support them.",
+          "Serious boundary-setting is needed—consider whether this financial dynamic is sustainable."
+        ],
+        color: "text-red-600"
+      };
+    } else {
+      return {
+        level: "⚠️ Extreme Financial Exploitation (Toxic/Dangerous Red Flag!)",
+        description: [
+          "🚨 Major warning signs of financial abuse or extreme dependence.",
+          "This person takes without contributing, pressures you financially, and manipulates through money.",
+          "No concern for future planning, employment, or financial independence.",
+          "High risk of long-term financial drain—consider distancing or cutting ties."
+        ],
+        color: "text-red-700"
+      };
+    }
+  };
+
   useEffect(() => {
     const url = new URL(window.location.href);
     url.searchParams.set("category", category);
@@ -386,6 +444,8 @@ export default function Results({ redFlagCount, totalQuestions, onRestart, categ
     ? getIceKingQueenAssessment(redFlagCount)
     : category === "The Escape Artist"
     ? getEscapeArtistAssessment(redFlagCount)
+    : category === "The Money Leech"
+    ? getMoneyLeechAssessment(redFlagCount)
     : null;
 
   return (
