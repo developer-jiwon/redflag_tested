@@ -301,6 +301,64 @@ export default function Results({ redFlagCount, totalQuestions, onRestart, categ
     }
   };
 
+  const getEscapeArtistAssessment = (count: number) => {
+    if (count <= 2) {
+      return {
+        level: "🟢 Low Avoidance Traits",
+        description: [
+          "This person doesn't show major signs of commitment phobia.",
+          "They may value independence but still engage in meaningful emotional connections.",
+          "Healthy relationship potential! Their approach to commitment is likely balanced."
+        ],
+        color: "text-green-600"
+      };
+    } else if (count <= 4) {
+      return {
+        level: "🟡 Mild Commitment Issues",
+        description: [
+          "Some reluctance around future talks or deep emotional conversations, but not extreme.",
+          "They may need more time or reassurance before committing fully.",
+          "Could be due to past experiences or fear of being 'trapped.'",
+          "Worth discussing boundaries and expectations to see if they're open to growth."
+        ],
+        color: "text-yellow-600"
+      };
+    } else if (count <= 6) {
+      return {
+        level: "🟠 Moderate Commitment Avoidance",
+        description: [
+          "A noticeable pattern of emotional distancing and avoidance of serious talks.",
+          "They likely send mixed signals, pull away when things get serious, or avoid defining the relationship.",
+          "Trust and stability might feel shaky. This could become frustrating over time.",
+          "Be cautious—decide if this level of uncertainty works for you."
+        ],
+        color: "text-orange-600"
+      };
+    } else if (count <= 8) {
+      return {
+        level: "🔴 High Commitment Avoidance (Red Flag Alert!)",
+        description: [
+          "🚩 Strong signs of relationship avoidance and instability.",
+          "They may ghost, disappear when things get serious, and dodge any talk of the future.",
+          "Emotional connection feels one-sided, and you may feel constantly confused about their intentions.",
+          "Serious boundary-setting is needed—this person might never truly commit."
+        ],
+        color: "text-red-600"
+      };
+    } else {
+      return {
+        level: "⚠️ Extreme Commitment Issues (Toxic/Dangerous Red Flag!)",
+        description: [
+          "🚨 Major warning signs of extreme avoidance and fear of commitment.",
+          "Expect disappearing acts, extreme emotional distance, and long-term instability.",
+          "They avoid labels, dodge deep conversations, and prioritize 'freedom' over connection.",
+          "Highly unlikely to change—consider if this relationship is emotionally fulfilling."
+        ],
+        color: "text-red-700"
+      };
+    }
+  };
+
   useEffect(() => {
     const url = new URL(window.location.href);
     url.searchParams.set("category", category);
@@ -326,6 +384,8 @@ export default function Results({ redFlagCount, totalQuestions, onRestart, categ
     ? getShadyLiarAssessment(redFlagCount)
     : category === "The Ice King/Queen"
     ? getIceKingQueenAssessment(redFlagCount)
+    : category === "The Escape Artist"
+    ? getEscapeArtistAssessment(redFlagCount)
     : null;
 
   return (
