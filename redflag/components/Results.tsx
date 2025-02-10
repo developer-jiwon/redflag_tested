@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { assessmentCriteria } from "../data/quizData"
 import { FacebookShareButton, TwitterShareButton } from 'react-share';
 import { Facebook, Twitter, Link } from 'lucide-react';
 
@@ -25,16 +24,6 @@ export default function Results({ redFlagCount, totalQuestions, onRestart, categ
     url.searchParams.set("totalQuestions", totalQuestions.toString());
     setShareUrl(url.toString());
   }, [category, redFlagCount, totalQuestions]);
-  
-  // Get assessment result based on the score
-  const getAssessmentResult = () => {
-    const criteria = assessmentCriteria[category as keyof typeof assessmentCriteria]
-    if (!criteria.length) return null
-
-    return criteria.find(({ range }) => redFlagCount >= range[0] && redFlagCount <= range[1])
-  }
-
-  const assessmentResult = getAssessmentResult()
 
   const handleCopyUrl = () => {
     navigator.clipboard.writeText(shareUrl).then(() => {
@@ -42,18 +31,6 @@ export default function Results({ redFlagCount, totalQuestions, onRestart, categ
       setTimeout(() => setCopySuccess(""), 2000); // Clear message after 2 seconds
     });
   }
-
-  const renderFeedback = (category: string, score: number) => {
-    const criteria = assessmentCriteria[category];
-    const feedback = criteria.find((c: { range: number[] }) => score >= c.range[0] && score <= c.range[1]);
-    return (
-      <div>
-        <h3>{feedback.level}</h3>
-        <p>{feedback.description}</p>
-        <p>{feedback.detailedFeedback}</p>
-      </div>
-    );
-  };
 
   return (
     <Card className="w-full bg-white">
@@ -66,11 +43,10 @@ export default function Results({ redFlagCount, totalQuestions, onRestart, categ
           <p className="text-lg mb-4">
             You identified {redFlagCount} red flags out of {totalQuestions} situations
           </p>
-          {assessmentResult && (
-            <div className="bg-gray-50 p-4 rounded-lg mb-6">
-              {renderFeedback(category, redFlagCount)}
-            </div>
-          )}
+          <div className="bg-gray-50 p-4 rounded-lg mb-6">
+            <p>Remember: This assessment is meant to raise awareness about potential relationship concerns.</p>
+            <p>If you have serious concerns, consider speaking with a relationship counselor or trusted advisor.</p>
+          </div>
           <div className="flex justify-center gap-4 mt-4">
             <FacebookShareButton url={shareUrl} hashtag="#RedFlagDetect">
               <Button className="bg-[#800200] text-white hover:bg-black p-2 rounded-full">
