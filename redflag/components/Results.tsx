@@ -417,6 +417,64 @@ export default function Results({ redFlagCount, totalQuestions, onRestart, categ
     }
   };
 
+  const getChaosMagnetAssessment = (count: number) => {
+    if (count <= 2) {
+      return {
+        level: "🟢 Low Drama Traits",
+        description: [
+          "This person doesn't exhibit strong signs of chaos-seeking behavior.",
+          "They likely handle challenges rationally and don't thrive on drama.",
+          "Healthy emotional stability—no major red flags."
+        ],
+        color: "text-green-600"
+      };
+    } else if (count <= 4) {
+      return {
+        level: "🟡 Mild Drama Tendencies",
+        description: [
+          "Some drama or instability exists, but it's not a major concern yet.",
+          "This person might get caught up in occasional chaotic situations or emotional swings, but it's not constant.",
+          "Could be situational rather than a personality trait—watch for long-term patterns.",
+          "Setting boundaries may help keep things balanced."
+        ],
+        color: "text-yellow-600"
+      };
+    } else if (count <= 6) {
+      return {
+        level: "🟠 Moderate Drama Patterns",
+        description: [
+          "A noticeable pattern of drama, crisis, and emotional upheaval is emerging.",
+          "They often turn minor issues into big problems and seem to attract or create chaos.",
+          "Interacting with them may feel exhausting, as their energy is often unpredictable.",
+          "Proceed with caution—drama may always follow this person."
+        ],
+        color: "text-orange-600"
+      };
+    } else if (count <= 8) {
+      return {
+        level: "🔴 High Drama Traits (Red Flag Alert!)",
+        description: [
+          "🚩 Strong signs of emotional instability and crisis-seeking behavior.",
+          "They thrive on chaos, struggle to maintain peace, and pull others into their emotional storms.",
+          "You may feel emotionally drained from their constant problems and conflicts.",
+          "Serious boundary-setting is needed—this person may never seek stability."
+        ],
+        color: "text-red-600"
+      };
+    } else {
+      return {
+        level: "⚠️ Extreme Drama Traits (Toxic/Dangerous Red Flag!)",
+        description: [
+          "🚨 Major warning signs of extreme chaos and drama addiction.",
+          "This person seems unable to function without turmoil and will drag others into their emotional rollercoaster.",
+          "Expect never-ending crises, constant emotional exhaustion, and major conflicts.",
+          "This relationship may not be sustainable—consider distancing for your own well-being."
+        ],
+        color: "text-red-700"
+      };
+    }
+  };
+
   useEffect(() => {
     const url = new URL(window.location.href);
     url.searchParams.set("category", category);
@@ -446,6 +504,8 @@ export default function Results({ redFlagCount, totalQuestions, onRestart, categ
     ? getEscapeArtistAssessment(redFlagCount)
     : category === "The Money Leech"
     ? getMoneyLeechAssessment(redFlagCount)
+    : category === "The Chaos Magnet"
+    ? getChaosMagnetAssessment(redFlagCount)
     : null;
 
   return (
