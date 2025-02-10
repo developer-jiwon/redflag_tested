@@ -1,12 +1,14 @@
 import type { Question } from "../data/quizData"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Check, X } from "lucide-react"
+import { Check, X, ArrowLeft } from "lucide-react"
 import { motion, type HTMLMotionProps } from "framer-motion"
 
 interface QuestionCardProps {
   question: Question
   onAnswer: (isRedFlag: boolean) => void
+  onPrevious?: () => void
+  canGoPrevious?: boolean
 }
 
 const fadeInUp = {
@@ -27,10 +29,25 @@ const fadeInUpDelayed = {
   transition: { duration: 0.8, ease: "easeOut", delay: 0.4 }
 }
 
-export default function QuestionCard({ question, onAnswer }: QuestionCardProps) {
+export default function QuestionCard({ 
+  question, 
+  onAnswer, 
+  onPrevious, 
+  canGoPrevious 
+}: QuestionCardProps) {
   return (
     <div className="w-full px-4 md:px-0 flex justify-center items-center">
       <Card className="w-full max-w-[90vw] md:max-w-2xl bg-white shadow-xl hover:shadow-2xl transition-all duration-500 relative overflow-hidden rounded-2xl border-0">
+        {/* Back button - Moved to top right */}
+        {canGoPrevious && (
+          <button
+            onClick={onPrevious}
+            className="absolute right-4 top-4 z-50 bg-gray-100 hover:bg-gray-200 p-3 rounded-full transition-all duration-300 cursor-pointer"
+          >
+            <ArrowLeft className="w-5 h-5 text-[#800200]" />
+          </button>
+        )}
+
         {/* Decorative elements */}
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#800200]/20 via-[#800200] to-[#800200]/20" />
         <div className="absolute top-4 right-4 w-16 md:w-24 h-16 md:h-24 bg-[#800200]/5 rounded-full blur-2xl animate-pulse" />

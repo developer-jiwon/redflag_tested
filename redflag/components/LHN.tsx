@@ -1,4 +1,4 @@
-import { Home, Heart, ArrowLeft } from "lucide-react"
+import { Home, Heart } from "lucide-react"
 import { useState } from "react"
 import { motion } from "framer-motion"
 
@@ -7,11 +7,9 @@ type AppState = "landing" | "category-selection" | "quiz" | "results"
 interface LHNProps {
   appState: AppState;
   onNavigate: (state: AppState) => void;
-  onPreviousQuestion: () => void;
-  canGoPrevious: boolean;
 }
 
-export default function LHN({ appState, onNavigate, onPreviousQuestion, canGoPrevious }: LHNProps) {
+export default function LHN({ appState, onNavigate }: LHNProps) {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -26,7 +24,7 @@ export default function LHN({ appState, onNavigate, onPreviousQuestion, canGoPre
           transition={{ duration: 0.3 }}
         >
           {isOpen ? (
-            <ArrowLeft className="w-6 h-6 text-white" />
+            <Heart className="w-6 h-6 text-white" />
           ) : (
             <Heart className="w-6 h-6 text-white" />
           )}
@@ -41,15 +39,6 @@ export default function LHN({ appState, onNavigate, onPreviousQuestion, canGoPre
         transition={{ duration: 0.3 }}
       >
         <div className="flex justify-center items-center gap-8 py-6 mt-4">
-          {appState === "quiz" && canGoPrevious && (
-            <ArrowLeft 
-              className="w-6 h-6 text-white/80 hover:text-white cursor-pointer transition-colors" 
-              onClick={() => {
-                onPreviousQuestion();
-                setIsOpen(false);
-              }}
-            />
-          )}
           <Home 
             className="w-6 h-6 text-white/80 hover:text-white cursor-pointer transition-colors" 
             onClick={() => {
@@ -70,12 +59,6 @@ export default function LHN({ appState, onNavigate, onPreviousQuestion, canGoPre
       {/* Desktop Left Navigation */}
       <div className="hidden md:block fixed left-0 top-0 h-full w-16 bg-black/90 z-[90]">
         <div className="flex flex-col items-center py-8 gap-8">
-          {appState === "quiz" && canGoPrevious && (
-            <ArrowLeft 
-              className="w-6 h-6 text-white/80 hover:text-white cursor-pointer transition-colors" 
-              onClick={onPreviousQuestion}
-            />
-          )}
           <Home 
             className="w-6 h-6 text-white/80 hover:text-white cursor-pointer transition-colors" 
             onClick={() => onNavigate("landing")}

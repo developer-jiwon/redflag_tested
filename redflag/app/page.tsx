@@ -96,55 +96,69 @@ export default function RedFlagDetect() {
   }
 
   return (
-    <div className="min-h-screen bg-[#800200] flex flex-col items-center justify-center p-4">
-      <div className="absolute top-4 right-4">
-        <button onClick={() => changeLanguage('en')} className="bg-white text-[#800200] hover:bg-gray-200 px-4 py-2 mr-2">English</button>
-        <button onClick={() => changeLanguage('es')} className="bg-white text-[#800200] hover:bg-gray-200 px-4 py-2">Español</button>
+    <div className="min-h-screen bg-[#800200]">
+      {/* Language buttons temporarily commented out
+      <div className="absolute top-4 right-4 z-[60]">
+        <button onClick={() => changeLanguage('en')} className="bg-white text-[#800200] hover:bg-gray-200 px-2 py-1 text-sm mr-2 rounded">English</button>
+        <button onClick={() => changeLanguage('es')} className="bg-white text-[#800200] hover:bg-gray-200 px-2 py-1 text-sm rounded">Español</button>
       </div>
+      */}
+
       <LHN 
         appState={appState} 
-        onNavigate={handleNavigate} 
-        onPreviousQuestion={handlePreviousQuestion}
-        canGoPrevious={appState === "quiz" && currentQuestionIndex > 0}
+        onNavigate={handleNavigate}
       />
       
-      <div className="ml-16 w-full flex justify-center">
-        {appState === "landing" && (
-          <div className="w-full max-w-md flex flex-col items-center">
-            <Lock className="w-16 h-16 text-white mb-6" />
-            <h1 className="text-4xl font-bold text-white text-center mb-6">Red Flag Detect</h1>
-            <p className="text-lg text-white text-center mb-8 max-w-sm">
-              Evaluate your current relationship for potential red flags. Take our assessment to learn more.
-            </p>
-            <Button onClick={handleStartQuiz} className="bg-white text-[#800200] hover:bg-gray-200 px-8 py-2 text-lg">
-              Start Assessment
-            </Button>
-          </div>
-        )}
-
-        {appState === "category-selection" && <CategorySelection onCategorySelect={handleCategorySelect} />}
-
-        {appState === "quiz" && questions.length > 0 && (
-          <div className="w-full max-w-md">
-            <h2 className="text-2xl font-bold text-white text-center mb-6">{selectedCategory} Quiz</h2>
-            <QuestionCard question={questions[currentQuestionIndex]} onAnswer={handleAnswer} />
-            <div className="text-white text-center mt-4">
-              Question {currentQuestionIndex + 1} of {questions.length}
+      <main className="w-full min-h-screen md:pl-16 flex items-center justify-center">
+        <div className="w-full flex justify-center items-center">
+          {appState === "landing" && (
+            <div className="flex flex-col items-center justify-center text-center px-4">
+              <Lock className="w-10 h-10 md:w-14 md:h-14 text-white mb-4 md:mb-5" />
+              <h1 className="text-2xl md:text-3xl font-bold text-white text-center mb-3 md:mb-4">Red Flag Detect</h1>
+              <p className="text-sm md:text-base text-white text-center mb-5 md:mb-6 max-w-sm">
+                Evaluate your current relationship for potential red flags. Take our assessment to learn more.
+              </p>
+              <Button onClick={handleStartQuiz} className="bg-white text-[#800200] hover:bg-gray-200 px-5 py-2 text-sm md:text-base">
+                Start Assessment
+              </Button>
             </div>
-          </div>
-        )}
+          )}
 
-        {appState === "results" && (
-          <div className="w-full max-w-md">
-            <Results 
-              redFlagCount={redFlagCount} 
-              totalQuestions={questions.length} 
-              onRestart={restartQuiz}
-              category={selectedCategory}
-            />
-          </div>
-        )}
-      </div>
+          {appState === "category-selection" && (
+            <div className="w-full h-full">
+              <CategorySelection onCategorySelect={handleCategorySelect} />
+            </div>
+          )}
+
+          {appState === "quiz" && questions.length > 0 && (
+            <div className="w-full max-w-[400px] flex flex-col items-center">
+              <h2 className="text-lg md:text-xl font-bold text-white text-center mb-3 md:mb-4">
+                {selectedCategory} Quiz
+              </h2>
+              <QuestionCard 
+                question={questions[currentQuestionIndex]} 
+                onAnswer={handleAnswer}
+                onPrevious={handlePreviousQuestion}
+                canGoPrevious={currentQuestionIndex > 0}
+              />
+              <div className="text-white text-center mt-3 text-sm">
+                Question {currentQuestionIndex + 1} of {questions.length}
+              </div>
+            </div>
+          )}
+
+          {appState === "results" && (
+            <div className="w-full max-w-[400px]">
+              <Results 
+                redFlagCount={redFlagCount} 
+                totalQuestions={questions.length} 
+                onRestart={restartQuiz}
+                category={selectedCategory}
+              />
+            </div>
+          )}
+        </div>
+      </main>
     </div>
   )
 }
