@@ -130,6 +130,63 @@ export default function Results({ redFlagCount, totalQuestions, onRestart, categ
     }
   };
 
+  const getControlFreakAssessment = (count: number) => {
+    if (count <= 2) {
+      return {
+        level: "🟢 Low Controlling Traits",
+        description: [
+          "This person shows little to no signs of controlling behavior.",
+          "They may express occasional concern or curiosity, but they respect boundaries and personal autonomy.",
+          "Healthy relationship dynamics! Some behaviors may stem from care, not control."
+        ],
+        color: "text-green-600"
+      };
+    } else if (count <= 4) {
+      return {
+        level: "🟡 Mild Controlling Traits",
+        description: [
+          "Some tendencies to monitor, question, or restrict behavior appear, but they may not be extreme.",
+          "Could be rooted in insecurity rather than intentional control.",
+          "Open communication could help—but be cautious if these behaviors escalate over time."
+        ],
+        color: "text-yellow-600"
+      };
+    } else if (count <= 6) {
+      return {
+        level: "🟠 Moderate Controlling Traits",
+        description: [
+          "A pattern of possessiveness and dominance is emerging.",
+          "This person likely dictates aspects of your life, invades privacy, or controls your time and choices.",
+          "Maintaining independence around them might feel difficult or exhausting.",
+          "Serious boundary-setting is needed—otherwise, the control may escalate."
+        ],
+        color: "text-orange-600"
+      };
+    } else if (count <= 8) {
+      return {
+        level: "🔴 High Controlling Traits (Red Flag Alert!)",
+        description: [
+          "This person consistently limits freedom, violates privacy, and expects control over decisions.",
+          "Expect guilt-tripping, monitoring, and restriction of personal relationships.",
+          "High risk of emotional control or manipulation—you may feel trapped in their rules.",
+          "Consider reevaluating this relationship and enforcing strong boundaries."
+        ],
+        color: "text-red-600"
+      };
+    } else {
+      return {
+        level: "⚠️ Extreme Controlling Traits (Toxic/Dangerous Red Flag!)",
+        description: [
+          "🚨 Major warning signs of possessive and possibly abusive behavior.",
+          "Expect isolation, control over finances, extreme jealousy, and no respect for personal autonomy.",
+          "Serious risk of emotional, psychological, or financial abuse.",
+          "Immediate action is advised—consider distancing or seeking support."
+        ],
+        color: "text-red-700"
+      };
+    }
+  };
+
   useEffect(() => {
     const url = new URL(window.location.href);
     url.searchParams.set("category", category);
@@ -149,6 +206,8 @@ export default function Results({ redFlagCount, totalQuestions, onRestart, categ
     ? getPuppetMasterAssessment(redFlagCount)
     : category === "The Narcissist Syndrome"
     ? getNarcissistAssessment(redFlagCount)
+    : category === "The Control Freak"
+    ? getControlFreakAssessment(redFlagCount)
     : null;
 
   return (
