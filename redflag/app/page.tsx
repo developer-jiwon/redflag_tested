@@ -10,6 +10,7 @@ import { Lock } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import LHN from "@/components/LHN"
 import { useTranslation } from 'react-i18next'
+import SmokeEffect from '@/components/SmokeEffect'
 
 type AppState = "landing" | "category-selection" | "quiz" | "results"
 
@@ -96,7 +97,8 @@ export default function RedFlagDetect() {
   }
 
   return (
-    <div className="min-h-screen bg-[#800200]">
+    <div className="min-h-screen bg-[#800200] relative overflow-hidden">
+      <SmokeEffect />
       {/* Language buttons temporarily commented out
       <div className="absolute top-4 right-4 z-[60]">
         <button onClick={() => changeLanguage('en')} className="bg-white text-[#800200] hover:bg-gray-200 px-2 py-1 text-sm mr-2 rounded">English</button>
@@ -109,7 +111,7 @@ export default function RedFlagDetect() {
         onNavigate={handleNavigate}
       />
       
-      <main className="w-full min-h-screen md:pl-16 flex items-center justify-center">
+      <main className="w-full min-h-screen md:pl-16 flex items-center justify-center relative z-20">
         <div className="w-full flex justify-center items-center">
           {appState === "landing" && (
             <div className="flex flex-col items-center justify-center text-center px-4">
@@ -118,7 +120,10 @@ export default function RedFlagDetect() {
               <p className="text-sm md:text-base text-white text-center mb-5 md:mb-6 max-w-sm">
                 Evaluate your current relationship for potential red flags. Take our assessment to learn more.
               </p>
-              <Button onClick={handleStartQuiz} className="bg-white text-[#800200] hover:bg-gray-200 px-5 py-2 text-sm md:text-base">
+              <Button 
+                onClick={handleStartQuiz} 
+                className="bg-white text-[#800200] hover:bg-gray-200 px-5 py-2 text-sm md:text-base relative z-30"
+              >
                 Start Assessment
               </Button>
             </div>
